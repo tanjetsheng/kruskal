@@ -1,29 +1,36 @@
 #include "graph.h"
+#include "stdio.h"
+#include "counting_sort.h"
 
-/*void createGraph(Edge *edge,void *head,void *tail,int weight){
-  edge->head = head;
-  edge->tail = tail;
-  edge->weight = weight;
-}*/
+void init(Graph *graph){
+  graph->edge=(Edge *)calloc(graph->SumE, sizeof(Edge));
 
-/*void createGraph(Graph *graph,void *head,void *tail,int weight){
-  graph->edge->head = head;
-  graph->edge->tail = tail;
-  graph->edge->weight = weight;
-}*/
+}
+Graph* createVerticle(Graph *graph,void *head,void *tail,int weight,int edgeNum){
 
-Graph* createVerticla(Graph* graph,void *head,void *tail,int weight,int edgeNum){
   graph->edge[edgeNum].head = head;
   graph->edge[edgeNum].tail = tail;
   graph->edge[edgeNum].weight = weight;
+  return graph;
 }
 
-Graph* createGraph(int SumE, int SumV)
+Graph* createGraph(Graph *graph,int SumE, int SumV)
 {
-    Graph* graph;
+
     graph->SumE = SumE;
     graph->SumV = SumV;
-  //  graph->edge = malloc(sizeof(Edge[SumE]));
-  //  free(graph->edge);
     return graph;
+}
+
+Graph* buildSorting(Graph *graph){
+  int totalNum = graph->SumE;
+  Graph** sorted;
+  //sorted=(Edge *) malloc(sizeof(edge));
+  for(int i=0;i<totalNum;i++){
+    Graph* now = graph->edge[i];
+    sorted[i] = now;
+    //printf("%d ,",sorted[i]);
+  }
+  //countingSort(sorted[],totalNum);
+  return sorted;
 }

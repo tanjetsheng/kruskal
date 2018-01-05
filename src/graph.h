@@ -23,6 +23,9 @@ struct Graph{
 
 //void createGraph(Edge *edge,void *head,void *tail,int weight);
 //void createGraph(Graph *graph,Edge *head,Edge *tail,int weight);
-Graph* createGraph(int SumE, int SumV);
-Graph* createVerticla(Graph* graph,void *head,void *tail,int weight,int edgeNum);
+void init(Graph *graph);
+Graph* createGraph(Graph *graph,int SumE, int SumV);
+Graph* createVerticle(Graph *graph,void *head,void *tail,int weight,int edgeNum);
+Graph* buildSorting(Graph *graph);
+
 #endif // _GRAPH_H
