@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 
-void printArray(int *array, int size);
+
 int maximum(int * array, int size);
 void countingSort(int * array, int size);
 

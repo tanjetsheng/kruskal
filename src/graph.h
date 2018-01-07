@@ -12,6 +12,7 @@ struct Edge{
   void *head;
   void *tail;
   int weight;
+  int edgeNum;
 };
 
 typedef struct Graph Graph;

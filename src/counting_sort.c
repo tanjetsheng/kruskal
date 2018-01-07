@@ -9,20 +9,22 @@ int maximum(int * array, int size){
   int max = 0;
 
   for(curr = 0; curr < size; curr++){
-    if(array[curr] > max){ max = array[curr]; }
+    if(array[curr] > max){
+      max = array[curr];
+    }
   }
 
   return max;
 }
 
-void countingSort(int * array, int size){
+void countingSort(Graph *array, int size){
 
   int curr = 0;
   int max = maximum(array, size);
-  int * counting_array = calloc(max, sizeof(int)); // Zeros out the array
+  int *counting_array; //= calloc(max, sizeof(Edge)); // Zeros out the array
 
   for(curr = 0; curr < size; curr ++){
-    counting_array[array[curr]]++;
+    counting_array[array->edge[curr].weight]++;
   }
 
   int num = 0;
