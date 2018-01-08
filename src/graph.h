@@ -6,27 +6,35 @@
 #include <stdlib.h>
 #include <string.h>
 #include <malloc.h>
+#include "Node.h"
+
+
+typedef struct Vertex Vertex;
+struct Vertex{
+  int sub;
+};
 
 typedef struct Edge Edge;
 struct Edge{
-  void *head;
-  void *tail;
+  Vertex *head;
+  Vertex *tail;
   int weight;
-  int edgeNum;
 };
 
 typedef struct Graph Graph;
 struct Graph{
   int SumV;
   int SumE;
+//  Node *graphNode;
   Edge *edge;
 };
 
-//void createGraph(Edge *edge,void *head,void *tail,int weight);
-//void createGraph(Graph *graph,Edge *head,Edge *tail,int weight);
+
 void init(Graph *graph);
 Graph* createGraph(Graph *graph,int SumE, int SumV);
-Graph* createVerticle(Graph *graph,void *head,void *tail,int weight,int edgeNum);
-Graph* buildSorting(Graph *graph);
+Graph* createVerticle(Graph *graph,Vertex *head,Vertex *tail,int weight);
+void createNode(Node *AvlNode,Graph *EdgeNode);
+
+//void kruskal(Graph *graph);
 
 #endif // _GRAPH_H
