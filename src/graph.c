@@ -2,32 +2,62 @@
 #include "stdio.h"
 
 
-
+int i =0;
 
 void init(Graph *graph){
   graph->edge=(Edge *)calloc(graph->SumE,sizeof(Edge));
 
 }
 Graph* createVerticle(Graph *graph,Vertex *head,Vertex *tail,int weight){
-  graph->edge->head = head;
-  graph->edge->tail = tail;
-  graph->edge->weight = weight;
+  //EdgeNode node = graph->AvlNode;
+  graph->edge[i].head = head;
+  graph->edge[i].tail = tail;
+  graph->edge[i].weight = weight;
+  //createNode(,&graph);
+  i++;
   return graph;
 }
 
 Graph* createGraph(Graph *graph,int SumE, int SumV)
 {
-
     graph->SumE = SumE;
     graph->SumV = SumV;
+    init(graph);
     return graph;
 }
 
-void createNode(Node *AvlNode,Graph *EdgeNode){
+EdgeNode* createNode(EdgeNode *AvlNode,Edge Edges){
   AvlNode->left = NULL;
   AvlNode->right = NULL;
   AvlNode->balanceFactor =0;
-  AvlNode->data = EdgeNode->edge;
+  AvlNode->data = Edges;
+  return AvlNode;
+}
+
+int addingNode(EdgeNode *root,Graph *graph){
+  EdgeNode *AvlNode;
+  int max = graph->SumV;
+  for(int j=0;j<max;j++){
+    createNode(&AvlNode,graph->edge[j]);
+    avlAddEdgeNode(&root,&AvlNode);
+  }
+
+}
+
+
+int WeightCompare(int *EdgeAvl,EdgeNode *EdgeGraph)
+{
+
+  if (EdgeAvl < EdgeGraph->data.weight)
+  {
+    return 1;
+  }
+  else if (EdgeAvl > EdgeGraph->data.weight)
+  {
+    return -1;
+  }
+  else
+    return 0;
 }
 
 /*

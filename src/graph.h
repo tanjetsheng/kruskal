@@ -7,6 +7,12 @@
 #include <string.h>
 #include <malloc.h>
 #include "Node.h"
+#include "addnode.h"
+#include "compareWeight.h"
+#include "avlint.h"
+#include "Node.h"
+
+
 
 
 typedef struct Vertex Vertex;
@@ -21,19 +27,33 @@ struct Edge{
   int weight;
 };
 
+typedef struct EdgeNode EdgeNode;
+struct EdgeNode {
+  Node *left;
+  Node *right;
+  int balanceFactor;
+  Edge data;
+};
+
+
 typedef struct Graph Graph;
 struct Graph{
   int SumV;
   int SumE;
-//  Node *graphNode;
+//  EdgeNode AvlNode;
   Edge *edge;
 };
 
 
+
+#define avlAddEdgeNode(nodePtr,newNode)  addNode(nodePtr,newNode,(Compare)WeightCompare)
+
 void init(Graph *graph);
 Graph* createGraph(Graph *graph,int SumE, int SumV);
 Graph* createVerticle(Graph *graph,Vertex *head,Vertex *tail,int weight);
-void createNode(Node *AvlNode,Graph *EdgeNode);
+EdgeNode* createNode(EdgeNode *AvlNode,Edge Edges);
+int addingNode(EdgeNode *root,Graph *graph);
+int WeightCompare(int *EdgeAvl,EdgeNode *EdgeGraph);
 
 //void kruskal(Graph *graph);
 

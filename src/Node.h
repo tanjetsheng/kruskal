@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+
+
 typedef struct Node Node;
 struct Node {
   Node *left;
@@ -18,4 +20,7 @@ struct StringNode {
   int balanceFactor;
   char *data;
 };
+
+
+
 #endif // _NODE_H
