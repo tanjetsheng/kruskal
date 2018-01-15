@@ -6,35 +6,20 @@
 #include <stdlib.h>
 #include <string.h>
 #include <malloc.h>
-#include "Node.h"
 #include "addnode.h"
-#include "compareWeight.h"
+#include "noderemove.h"
 #include "avlint.h"
 #include "Node.h"
 
-
-
-
-typedef struct Vertex Vertex;
-struct Vertex{
-  int sub;
-};
-
-typedef struct Edge Edge;
-struct Edge{
-  Vertex *head;
-  Vertex *tail;
-  int weight;
-};
-
+/*
 typedef struct EdgeNode EdgeNode;
 struct EdgeNode {
-  Node *left;
-  Node *right;
+  EdgeNode *left;
+  EdgeNode *right;
   int balanceFactor;
   Edge data;
 };
-
+*/
 
 typedef struct Graph Graph;
 struct Graph{
@@ -45,15 +30,19 @@ struct Graph{
 };
 
 
-
+#define avlRemoveEdgeNode(rootPtr,nodeToRemove) RemoveNode(rootPtr,nodeToRemove,(Compare)WeightCompareRemove)
 #define avlAddEdgeNode(nodePtr,newNode)  addNode(nodePtr,newNode,(Compare)WeightCompare)
 
 void init(Graph *graph);
 Graph* createGraph(Graph *graph,int SumE, int SumV);
-Graph* createVerticle(Graph *graph,Vertex *head,Vertex *tail,int weight);
-EdgeNode* createNode(EdgeNode *AvlNode,Edge Edges);
-int addingNode(EdgeNode *root,Graph *graph);
-int WeightCompare(int *EdgeAvl,EdgeNode *EdgeGraph);
+Graph* createEdge(Graph *graph,Vertex *head,Vertex *tail,int weight,int edgeNum);
+void createNode(Node *AvlNode,Edge edges);
+void addingNode(Node **root,Graph *graph);
+Node *getSmallestRemove(Node **root);
+Edge convertNodeToEdge(Node *EdgeAvl);
+int WeightCompare(Edge *EdgeAvl,Node *EdgeGraph);
+int WeightCompareRemove(int EdgeGraph,Node *EdgeAvl);
+
 
 //void kruskal(Graph *graph);
 

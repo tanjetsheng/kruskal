@@ -44,9 +44,9 @@ int addNode(Node **nodePtr,Node *newNode,Compare IntegerCompare){
      }
    }
    if((*nodePtr)->balanceFactor >= 2)
-       avlBalanceLeftTree(&(*nodePtr));
-   else if((*nodePtr)->balanceFactor <= -2)
        avlBalanceRightTree(&(*nodePtr));
+   else if((*nodePtr)->balanceFactor <= -2)
+       avlBalanceLeftTree(&(*nodePtr));
    else{
       *nodePtr = *nodePtr;
      }

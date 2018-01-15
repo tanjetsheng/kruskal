@@ -3,14 +3,24 @@
 
 #include <stdint.h>
 
+typedef struct Vertex Vertex;
+struct Vertex{
+  int sub;
+};
 
+typedef struct Edge Edge;
+struct Edge{
+  Vertex *head;
+  Vertex *tail;
+  int weight;
+};
 
 typedef struct Node Node;
 struct Node {
   Node *left;
   Node *right;
   int balanceFactor;
-  void *data;
+  Edge *data;
 };
 
 typedef struct StringNode StringNode;

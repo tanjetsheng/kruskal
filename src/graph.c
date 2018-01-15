@@ -1,20 +1,17 @@
 #include "graph.h"
 #include "stdio.h"
 
-
-int i =0;
-
 void init(Graph *graph){
   graph->edge=(Edge *)calloc(graph->SumE,sizeof(Edge));
 
 }
-Graph* createVerticle(Graph *graph,Vertex *head,Vertex *tail,int weight){
+Graph* createEdge(Graph *graph,Vertex *head,Vertex *tail,int weight,int edgeNum){
   //EdgeNode node = graph->AvlNode;
-  graph->edge[i].head = head;
-  graph->edge[i].tail = tail;
-  graph->edge[i].weight = weight;
+  graph->edge[edgeNum].head = head;
+  graph->edge[edgeNum].tail = tail;
+  graph->edge[edgeNum].weight = weight;
+  //printf("%d",graph->edge[i].weight);
   //createNode(,&graph);
-  i++;
   return graph;
 }
 
@@ -26,33 +23,41 @@ Graph* createGraph(Graph *graph,int SumE, int SumV)
     return graph;
 }
 
-EdgeNode* createNode(EdgeNode *AvlNode,Edge Edges){
+void createNode(Node *AvlNode,Edge edges){
+  Edge *edgesP=(Edge *)malloc(sizeof(Edge));
+  *edgesP = edges;
   AvlNode->left = NULL;
   AvlNode->right = NULL;
   AvlNode->balanceFactor =0;
-  AvlNode->data = Edges;
-  return AvlNode;
+  AvlNode->data = edgesP;
+  //return AvlNode;
 }
 
-int addingNode(EdgeNode *root,Graph *graph){
-  EdgeNode *AvlNode;
-  int max = graph->SumV;
+void addingNode(Node **root,Graph *graph){
+
+  int max = graph->SumE;
   for(int j=0;j<max;j++){
-    createNode(&AvlNode,graph->edge[j]);
-    avlAddEdgeNode(&root,&AvlNode);
+    Node *AvlNode = (Node *)malloc(sizeof(Node));
+    createNode(AvlNode, graph->edge[j]);
+    avlAddEdgeNode(root,AvlNode);
   }
-
 }
 
+Node *getSmallestRemove(Node **root){
+  Node *shortest = getSmallest(&(*root));
+  int smallestWeight = shortest->data->weight;
+  avlRemoveEdgeNode(root,smallestWeight);
+}
 
-int WeightCompare(int *EdgeAvl,EdgeNode *EdgeGraph)
+int WeightCompare(Edge *EdgeAvl,Node *EdgeGraph)
 {
-
-  if (EdgeAvl < EdgeGraph->data.weight)
+  int data = EdgeAvl->weight;
+  int data1 = EdgeGraph->data->weight;
+  if (data < data1)
   {
     return 1;
   }
-  else if (EdgeAvl > EdgeGraph->data.weight)
+  else if (data > data1)
   {
     return -1;
   }
@@ -60,24 +65,54 @@ int WeightCompare(int *EdgeAvl,EdgeNode *EdgeGraph)
     return 0;
 }
 
-/*
-void kruskal(Graph *graph){
-  int orig=1;
-  int set=0;
-  Graph sub;
-  sub.edge[0].head = graph->edge[0].head;
-  sub.edge[0].tail = graph->edge[0].tail;
-  sub.edge[0].weight = graph->edge[0].weight;
-  sub.edge[0].tail->sub = graph->edge[0].head->sub;
-  while(now<=((graph->SumV)-1)){
-    if(sub.edge[set].head->sub != graph->edge[next].head->sub ){
-      if(sub.edge[set].head->sub != graph->edge[next].tail->sub ){
-        sub.edge[next].head = graph->edge[next].head;
-        sub.edge[next].tail = graph->edge[next].tail;
-        sub.edge[next].weight = graph->edge[next].weight;
-        graph->edge[].head->sub = sub.edge[].head->sub;
-        graph->edge[].tail->sub = sub.edge[].tail->sub;
-    }
+int WeightCompareRemove(int EdgeGraph,Node *EdgeAvl)
+{
+  int data = EdgeAvl->data->weight;
+  if (data < EdgeGraph)
+  {
+    return -1;
   }
+  else if (data > EdgeGraph)
+  {
+    return 1;
+  }
+  else
+    return 0;
 }
-*/
+
+Edge convertNodeToEdge(Node *EdgeAvl){
+  Edge edge;
+  edge.head = EdgeAvl->data->head;
+  edge.tail = EdgeAvl->data->tail;
+  edge.weight = EdgeAvl->data->weight;
+  return edge;
+}
+
+
+Graph kruskal(Graph *graph){
+  int i=1;
+  Graph MST;
+  Node *node;
+  addingNode(&node,&graph);
+  int mainSub = graph->edge[0]->head->sub;
+  graph->edge[0]->tail->sub =graph->edge[0]->head->sub;
+  MST->edge[0]->head->sub = mainSub;
+  MST->edge[0]->tail->sub = mainSub;
+  MST->edge[0]->weight = graph->edge[0]->weight;
+while(i<(graph->SumV-1)){
+  Node *shorted = getSmallestRemove(&node);
+  Edge SmallEdge = convertNodeToEdge(shorted);
+    if()
+
+
+
+
+
+
+
+
+
+
+
+}
+    }

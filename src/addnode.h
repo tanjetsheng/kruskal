@@ -7,6 +7,8 @@
 #include "avlint.h"
 
 
+
+
 #define avlAddInteger(nodePtr,newNode)  addNode(nodePtr,newNode,(Compare)IntegerCompare)
 #define avlAddString(nodePtr,newNode)  addNode(nodePtr,newNode,(Compare)StringCompare)
 int addNode(Node **nodePtr,Node *newNode,Compare IntegerCompare);

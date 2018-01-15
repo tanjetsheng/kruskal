@@ -4,7 +4,9 @@
 #include <stdlib.h>
 #include "addnode.h"
 #include "rotate.h"
-#include "compareWeight.h"
+#include "findSmallest.h"
+#include "noderemove.h"
+
 
 Vertex s1,s2,s3,s4,s5,s6,s7,s8,s9;
 void setUp(void)
@@ -27,10 +29,10 @@ void tearDown(void)
 void test_Insert_Graph(void)
 {
     Graph graph;
-    createGraph(&graph,4,5);
+    createGraph(&graph,2,3);
 
-    createVerticle(&graph,&s1,&s2,5);
-    createVerticle(&graph,&s2,&s3,3);
+    createEdge(&graph,&s1,&s2,5,0);
+    createEdge(&graph,&s2,&s3,3,1);
     TEST_ASSERT_EQUAL(graph.edge[0].weight,5);
     TEST_ASSERT_EQUAL(graph.edge[1].weight,3);
 }
@@ -38,17 +40,49 @@ void test_Insert_Graph(void)
 
 void test_createing_node(void){
   Graph graph;
-  EdgeNode *node = NULL;
+  Node *node = NULL;
 
-  createGraph(&graph,2,1);
+  createGraph(&graph,2,3);
 
-  createVerticle(&graph,&s1,&s2,5);
+  createEdge(&graph,&s1,&s2,5,0);
+  createEdge(&graph,&s2,&s3,3,1);
   addingNode(&node,&graph);
-  //createNode(&node,&graph);
 
-
-  //TEST_ASSERT_EQUAL_PTR(node[0].left,NULL);
+  TEST_ASSERT_EQUAL_PTR(node->right,NULL);
+  TEST_ASSERT_NOT_NULL(node->left);
 //  TEST_ASSERT_EQUAL_PTR(node.data,graph.edge);
+}
+
+void test_getting_smallest_value(void){
+  Graph graph;
+  Node *node = NULL;
+
+  createGraph(&graph,5,4);
+
+  createEdge(&graph,&s1,&s2,4,0);
+  createEdge(&graph,&s2,&s4,5,1);
+  createEdge(&graph,&s1,&s3,3,2);
+  createEdge(&graph,&s3,&s4,2,3);
+  createEdge(&graph,&s1,&s4,1,4);
+  addingNode(&node,&graph);
+  Node *shorted = getSmallest(node);
+  TEST_ASSERT_EQUAL(1,shorted->data->weight);
+
+}
+
+void test_getsmallest_and_remove(void){
+  Graph graph;
+  Node *node = NULL;
+
+  createGraph(&graph,5,4);
+
+  createEdge(&graph,&s1,&s2,4,0);
+  createEdge(&graph,&s2,&s4,5,1);
+  createEdge(&graph,&s1,&s3,3,2);
+  createEdge(&graph,&s3,&s4,2,3);
+  createEdge(&graph,&s1,&s4,1,4);
+  addingNode(&node,&graph);
+  Node *shorted = getSmallestRemove(&node);
 }
 /*
 void test_Insert_sorting(void)
