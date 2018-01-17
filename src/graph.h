@@ -40,6 +40,8 @@ void createNode(Node *AvlNode,Edge edges);
 void addingNode(Node **root,Graph *graph);
 Node *getSmallestRemove(Node **root);
 Edge convertNodeToEdge(Node *EdgeAvl);
+Graph combine(Graph graph,int NumEdge,Edge edge);
+Graph kruskal(Graph graph);
 int WeightCompare(Edge *EdgeAvl,Node *EdgeGraph);
 int WeightCompareRemove(int EdgeGraph,Node *EdgeAvl);
 

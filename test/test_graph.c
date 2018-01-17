@@ -11,15 +11,15 @@
 Vertex s1,s2,s3,s4,s5,s6,s7,s8,s9;
 void setUp(void)
 {
-  s1.sub =1;
-  s2.sub =2;
-  s3.sub =3;
-  s4.sub =4;
-  s5.sub =5;
-  s6.sub =6;
-  s7.sub =7;
-  s8.sub =8;
-  s9.sub =9;
+  s1.sub =0;
+  s2.sub =0;
+  s3.sub =0;
+  s4.sub =0;
+  s5.sub =0;
+  s6.sub =0;
+  s7.sub =0;
+  s8.sub =0;
+  s9.sub =0;
 }
 
 void tearDown(void)
@@ -72,7 +72,7 @@ void test_getting_smallest_value(void){
 
 void test_getsmallest_and_remove(void){
   Graph graph;
-  Node *node = NULL;
+
 
   createGraph(&graph,5,4);
 
@@ -81,8 +81,7 @@ void test_getsmallest_and_remove(void){
   createEdge(&graph,&s1,&s3,3,2);
   createEdge(&graph,&s3,&s4,2,3);
   createEdge(&graph,&s1,&s4,1,4);
-  addingNode(&node,&graph);
-  Node *shorted = getSmallestRemove(&node);
+  kruskal(graph);
 }
 /*
 void test_Insert_sorting(void)
