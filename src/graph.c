@@ -44,7 +44,7 @@ void addingNode(Node **root,Graph *graph){
 }
 
 Node *getSmallestRemove(Node **root){
-  Node *shortest = getSmallest(&(*root));
+  Node *shortest = getSmallest(*root);
   int smallestWeight = shortest->data->weight;
   avlRemoveEdgeNode(root,smallestWeight);
   return shortest;
@@ -89,7 +89,7 @@ Edge convertNodeToEdge(Node *EdgeAvl){
   return edge;
 }
 
-Graph combine(Graph graph,int NumEdge,Edge edge){
+void combine(MST graph,int NumEdge,Edge edge){
   int sub1 = edge.head->sub;
   int sub2 = edge.tail->sub;
     for(int i = 0;i<=NumEdge;i++){
@@ -106,43 +106,51 @@ Graph combine(Graph graph,int NumEdge,Edge edge){
     }
   }
 }
-  return graph;
+//  return graph;
 }
-
-
-Graph kruskal(Graph graph){
-  int GraphEdge=0;
+/*
+void print(Graph graph,int NumEdge){
+  for(int i =0;i<NumEdge;i++){
+    printf("weight = %d/n",graph.edge[NumEdge].weight);
+  }
+}
+*/
+void kruskal(Graph *graph){
+//  int GraphEdge=0;
   int MstEdge = 0;
   int subset =1;
-  Graph MST;
+  MST minimal;
   Node *node =NULL;
-  addingNode(&node,&graph);
-while(MstEdge<(graph.SumV-1)){
+  addingNode(&node,graph);
+while(MstEdge<(graph->SumV-1)){
   Node *shorted = getSmallestRemove(&node);
   Edge SmallEdge = convertNodeToEdge(shorted);
-  if((SmallEdge.head->sub || SmallEdge.tail->sub) !=0){
-    if(SmallEdge.head->sub == SmallEdge.tail->sub){
-      GraphEdge++;
+    if((SmallEdge.head->sub == SmallEdge.tail->sub)&& SmallEdge.head->sub !=0){
+    //  GraphEdge++;
     }
     else{
-      MST.edge[MstEdge] = graph.edge[GraphEdge];
-      if((SmallEdge.head->sub  && SmallEdge.tail->sub)== 0){
-        graph.edge[GraphEdge].head->sub = subset;
-        graph.edge[GraphEdge].tail->sub = subset;
+      minimal.edge=(Edge *)malloc(sizeof(Edge));
+      minimal.edge[MstEdge] = SmallEdge;
+      int headSub = SmallEdge.head->sub;
+      int tailSub = SmallEdge.tail->sub;
+      if((headSub ==0 && tailSub == 0)){
+        SmallEdge.head->sub = subset;
+        SmallEdge.tail->sub = subset;
         subset ++;
       }
       else if(SmallEdge.head->sub != 0 && SmallEdge.tail->sub == 0){
-        graph.edge[GraphEdge].tail->sub = graph.edge[GraphEdge].head->sub;
+        SmallEdge.tail->sub = SmallEdge.head->sub;
       }
       else if(SmallEdge.head->sub == 0 && SmallEdge.tail->sub != 0){
-        graph.edge[GraphEdge].head->sub = graph.edge[GraphEdge].tail->sub;
+        SmallEdge.head->sub = SmallEdge.tail->sub;
       }
       else{
-          combine(MST,MstEdge,SmallEdge);
+          combine(minimal,MstEdge,SmallEdge);
       }
-    GraphEdge++;
+  //  GraphEdge++;
     MstEdge++;
     }
-
 }
+//print(MST,MstEdge);
+
     }

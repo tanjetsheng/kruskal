@@ -70,8 +70,9 @@ void test_getting_smallest_value(void){
 
 }
 
-void test_getsmallest_and_remove(void){
+void test_kruskal(void){
   Graph graph;
+  Graph *MST;
 
 
   createGraph(&graph,5,4);
@@ -81,8 +82,23 @@ void test_getsmallest_and_remove(void){
   createEdge(&graph,&s1,&s3,3,2);
   createEdge(&graph,&s3,&s4,2,3);
   createEdge(&graph,&s1,&s4,1,4);
-  kruskal(graph);
+  kruskal(&graph);
+  //TEST_ASSERT_EQUAL(1,1);
+//  printf("asd=%d",graph.edge->weight);
+
 }
+/*
+void test_convertEdge(void){
+  Graph graph;
+  Node *node =NULL;
+  createGraph(&graph,2,3);
+  createEdge(&graph,&s1,&s2,4,0);
+  createEdge(&graph,&s2,&s4,5,1);
+  addingNode(&node,&graph);
+  Node *shorted = getSmallestRemove(&node);
+  Edge SmallEdge = convertNodeToEdge(shorted);
+  TEST_ASSERT_EQUAL(4,SmallEdge.weight);
+}*/
 /*
 void test_Insert_sorting(void)
 {

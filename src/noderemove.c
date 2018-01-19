@@ -57,7 +57,7 @@ Node *getValue(Node **nodePtr,int *height)
 }
 
 
-Node *avl_Remove(Node **nodePtr, int nodeToRemove, int *height,Compare IntegerCompare)
+Node *avl_Remove(Node **nodePtr, int nodeToRemove, int *height,CompareWeight IntegerCompare)
 {
   if((*nodePtr) == NULL){
     return *nodePtr;
@@ -145,7 +145,7 @@ Node *avl_Remove(Node **nodePtr, int nodeToRemove, int *height,Compare IntegerCo
     return *nodePtr;
 }
 
-Node *RemoveNode(Node **nodePtr, int nodeToRemove,Compare IntCompare)
+Node *RemoveNode(Node **nodePtr, int nodeToRemove,CompareWeight IntCompare)
 {
   int height;
   Node *RemoveNode = avl_Remove(nodePtr,nodeToRemove, &height,IntCompare);

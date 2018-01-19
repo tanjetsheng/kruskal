@@ -3,6 +3,7 @@
 #include "Node.h"
 
 typedef int(*Compare)(void *data,Node *refNode);
+typedef int(*CompareWeight)(int data,Node *refNode);
 
 
 int IntegerCompare(int data, Node *refNode);

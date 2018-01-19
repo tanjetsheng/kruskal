@@ -8,8 +8,8 @@
 
 #define avlRemoveInteger(rootPtr,nodeToRemove) RemoveNode(rootPtr,nodeToRemove,(Compare) IntegerCompare)
 #define avlRemoveString(rootPtr,nodeToRemove) RemoveNode(rootPtr,nodeToRemove,(Compare) StringCompare)
-Node *RemoveNode(Node **nodePtr, int nodeToRemove,Compare IntegerCompare);
-Node *avl_Remove(Node **nodePtr, int nodeToRemove, int *height,Compare IntegerCompare);
+Node *RemoveNode(Node **nodePtr, int nodeToRemove,CompareWeight IntegerCompare);
+Node *avl_Remove(Node **nodePtr, int nodeToRemove, int *height,CompareWeight IntegerCompare);
 Node *getValue(Node **nodePtr,int *height);
 
 
