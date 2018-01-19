@@ -94,43 +94,50 @@ void combine(MST graph,int NumEdge,Edge edge){
   int sub2 = edge.tail->sub;
     for(int i = 0;i<=NumEdge;i++){
   if(sub1 > sub2){
-    if((graph.edge[i].head->sub || graph.edge[i].tail->sub) == sub1){
-      graph.edge[i].head->sub = sub2;
-      graph.edge[i].tail->sub = sub2;
+    if((graph.mstEdge[i].head->sub || graph.mstEdge[i].tail->sub) == sub1){
+      graph.mstEdge[i].head->sub = sub2;
+      graph.mstEdge[i].tail->sub = sub2;
     }
   }
   else{
-    if((graph.edge[i].head->sub || graph.edge[i].tail->sub) == sub2){
-      graph.edge[i].head->sub = sub1;
-      graph.edge[i].tail->sub = sub1;
+    if((graph.mstEdge[i].head->sub || graph.mstEdge[i].tail->sub) == sub2){
+      graph.mstEdge[i].head->sub = sub1;
+      graph.mstEdge[i].tail->sub = sub1;
     }
   }
 }
 //  return graph;
 }
-/*
-void print(Graph graph,int NumEdge){
+
+void print(MST graph,int NumEdge){
   for(int i =0;i<NumEdge;i++){
-    printf("weight = %d/n",graph.edge[NumEdge].weight);
+    int weight = graph.mstEdge[NumEdge].weight;
+    printf("weight= %d  ",weight);
   }
 }
-*/
+
 void kruskal(Graph *graph){
 //  int GraphEdge=0;
   int MstEdge = 0;
   int subset =1;
+  int totalMst = (graph->SumV-1);
   MST minimal;
   Node *node =NULL;
   addingNode(&node,graph);
-while(MstEdge<(graph->SumV-1)){
+  minimal.mstEdge=(Edge *)calloc(graph->SumV,sizeof(Edge));
+  minimal.totalWeight =0;
+while(MstEdge<totalMst){
   Node *shorted = getSmallestRemove(&node);
   Edge SmallEdge = convertNodeToEdge(shorted);
     if((SmallEdge.head->sub == SmallEdge.tail->sub)&& SmallEdge.head->sub !=0){
     //  GraphEdge++;
     }
     else{
-      minimal.edge=(Edge *)malloc(sizeof(Edge));
-      minimal.edge[MstEdge] = SmallEdge;
+    //  Edge *MstP=(Edge *)malloc(sizeof(Edge));
+  //    *MstP = SmallEdge;
+    //  minimal.mstEdge=(Edge *)malloc(sizeof(Edge));
+      minimal.mstEdge[MstEdge] = SmallEdge;
+      minimal.totalWeight = minimal.totalWeight + SmallEdge.weight;
       int headSub = SmallEdge.head->sub;
       int tailSub = SmallEdge.tail->sub;
       if((headSub ==0 && tailSub == 0)){
@@ -147,10 +154,12 @@ while(MstEdge<(graph->SumV-1)){
       else{
           combine(minimal,MstEdge,SmallEdge);
       }
+      printf("weight=%d/n",minimal.totalWeight);
   //  GraphEdge++;
     MstEdge++;
     }
 }
-//print(MST,MstEdge);
+//print(minimal,MstEdge);
+printf("totalweight=%d",minimal.totalWeight);
 
     }
