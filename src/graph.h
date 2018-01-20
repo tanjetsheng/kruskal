@@ -12,15 +12,7 @@
 #include "findSmallest.h"
 #include "Node.h"
 
-/*
-typedef struct EdgeNode EdgeNode;
-struct EdgeNode {
-  EdgeNode *left;
-  EdgeNode *right;
-  int balanceFactor;
-  Edge data;
-};
-*/
+
 typedef struct MST MST;
 struct MST{
   int totalWeight;
@@ -31,7 +23,6 @@ typedef struct Graph Graph;
 struct Graph{
   int SumV;
   int SumE;
-//  EdgeNode AvlNode;
   Edge *edge;
 };
 
@@ -47,12 +38,10 @@ void addingNode(Node **root,Graph *graph);
 Node *getSmallestRemove(Node **root);
 Edge convertNodeToEdge(Node *EdgeAvl);
 void combine(MST graph,int NumEdge,Edge edge);
-void kruskal(Graph *graph);
+MST kruskal(Graph *graph);
 int WeightCompare(Edge *EdgeAvl,Node *EdgeGraph);
 int WeightCompareRemove(int EdgeGraph,Node *EdgeAvl);
 void print(MST graph,int NumEdge);
 
-
-//void kruskal(Graph *graph);
 
 #endif // _GRAPH_H

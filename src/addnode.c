@@ -29,7 +29,6 @@ int addNode(Node **nodePtr,Node *newNode,Compare IntegerCompare){
        }
      else
      (*nodePtr)->balanceFactor =(*nodePtr)->balanceFactor;
-
      }
      else if (Result ==-1)
      {
@@ -41,6 +40,16 @@ int addNode(Node **nodePtr,Node *newNode,Compare IntegerCompare){
          }
        else
          (*nodePtr)->balanceFactor =(*nodePtr)->balanceFactor;
+     }
+     else{
+       height = addNode(&(*nodePtr)->left,newNode,IntegerCompare);
+         if(height==1){
+         (*nodePtr)->balanceFactor -= 1;
+           if((*nodePtr)->balanceFactor==0)
+           height=0;
+         }
+       else
+       (*nodePtr)->balanceFactor =(*nodePtr)->balanceFactor;
      }
    }
    if((*nodePtr)->balanceFactor >= 2)

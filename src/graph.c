@@ -116,7 +116,7 @@ void print(MST graph,int NumEdge){
   }
 }
 
-void kruskal(Graph *graph){
+MST kruskal(Graph *graph){
 //  int GraphEdge=0;
   int MstEdge = 0;
   int subset =1;
@@ -130,12 +130,9 @@ while(MstEdge<totalMst){
   Node *shorted = getSmallestRemove(&node);
   Edge SmallEdge = convertNodeToEdge(shorted);
     if((SmallEdge.head->sub == SmallEdge.tail->sub)&& SmallEdge.head->sub !=0){
-    //  GraphEdge++;
+
     }
     else{
-    //  Edge *MstP=(Edge *)malloc(sizeof(Edge));
-  //    *MstP = SmallEdge;
-    //  minimal.mstEdge=(Edge *)malloc(sizeof(Edge));
       minimal.mstEdge[MstEdge] = SmallEdge;
       minimal.totalWeight = minimal.totalWeight + SmallEdge.weight;
       int headSub = SmallEdge.head->sub;
@@ -154,12 +151,12 @@ while(MstEdge<totalMst){
       else{
           combine(minimal,MstEdge,SmallEdge);
       }
-      printf("weight=%d/n",minimal.totalWeight);
+      printf("%s ----- %s ,weight=%d\n",SmallEdge.head->name,SmallEdge.tail->name,SmallEdge.weight);
   //  GraphEdge++;
     MstEdge++;
     }
 }
 //print(minimal,MstEdge);
-printf("totalweight=%d",minimal.totalWeight);
-
+printf("totalweight = %d \n",minimal.totalWeight);
+  return minimal;
     }

@@ -6,6 +6,7 @@
 typedef struct Vertex Vertex;
 struct Vertex{
   int sub;
+  char *name;
 };
 
 typedef struct Edge Edge;
