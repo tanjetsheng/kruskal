@@ -143,6 +143,7 @@ void test_kruskal_with_two_subset(void){
   TEST_ASSERT_EQUAL(mst.totalWeight,15);
 }
 
+
 void test_two_same_value_node(void){
   Graph graph;
   MST mst;

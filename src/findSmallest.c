@@ -15,7 +15,6 @@ Node *getSmallest(Node *nodePtr){
       nodePtr->left->balanceFactor = nodePtr->balanceFactor;
       nodePtr->left->data = nodePtr->data;
 
-      nodePtr->left = temp->left;
       nodePtr->right = temp->right;
       nodePtr->balanceFactor = temp->balanceFactor;
       nodePtr->data = temp->data;
