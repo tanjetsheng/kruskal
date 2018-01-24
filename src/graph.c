@@ -1,20 +1,19 @@
 #include "graph.h"
 #include "stdio.h"
-
+//create a memory to create edge;
 void init(Graph *graph){
   graph->edge=(Edge *)calloc(graph->SumE,sizeof(Edge));
-
 }
+
+//use to create edge with different head tail and weight
 Graph* createEdge(Graph *graph,Vertex *head,Vertex *tail,int weight,int edgeNum){
-  //EdgeNode node = graph->AvlNode;
   graph->edge[edgeNum].head = head;
   graph->edge[edgeNum].tail = tail;
   graph->edge[edgeNum].weight = weight;
-  //printf("%d",graph->edge[i].weight);
-  //createNode(,&graph);
   return graph;
 }
 
+//use to determine the total number of edge and verticle to know that need create how many space
 Graph* createGraph(Graph *graph,int SumE, int SumV)
 {
     graph->SumE = SumE;
@@ -23,6 +22,7 @@ Graph* createGraph(Graph *graph,int SumE, int SumV)
     return graph;
 }
 
+//create avl node to insert into avl tree for sorting
 void createNode(Node *AvlNode,Edge edges){
   Edge *edgesP=(Edge *)malloc(sizeof(Edge));
   *edgesP = edges;
@@ -33,6 +33,7 @@ void createNode(Node *AvlNode,Edge edges){
   //return AvlNode;
 }
 
+//adding node into avl tree from all the edge of graph
 void addingNode(Node **root,Graph *graph){
 
   int max = graph->SumE;
@@ -43,6 +44,7 @@ void addingNode(Node **root,Graph *graph){
   }
 }
 
+//use to get the smallst value in to avl tree and remove the node
 Node *getSmallestRemove(Node **root){
   Node *shortest = getSmallest(*root);
   int smallestWeight = shortest->data->weight;
@@ -50,6 +52,7 @@ Node *getSmallestRemove(Node **root){
   return shortest;
 }
 
+//compare function for edge weight for adding in avl
 int WeightCompare(Edge *EdgeAvl,Node *EdgeGraph)
 {
   int data = EdgeAvl->weight;
@@ -66,6 +69,7 @@ int WeightCompare(Edge *EdgeAvl,Node *EdgeGraph)
     return 0;
 }
 
+//compare function for edge weight in avl for remove
 int WeightCompareRemove(int EdgeGraph,Node *EdgeAvl)
 {
   int data = EdgeAvl->data->weight;
@@ -81,6 +85,7 @@ int WeightCompareRemove(int EdgeGraph,Node *EdgeAvl)
     return 0;
 }
 
+//get the data value in the avl node and convert it back to edge form
 Edge convertNodeToEdge(Node *EdgeAvl){
   Edge edge;
   edge.head = EdgeAvl->data->head;
@@ -89,6 +94,7 @@ Edge convertNodeToEdge(Node *EdgeAvl){
   return edge;
 }
 
+//combining two sub set into one test_kruskal_with_two_subset
 void combine(MST graph,int NumEdge,Edge edge){
   int sub1 = edge.head->sub;
   int sub2 = edge.tail->sub;
@@ -106,7 +112,7 @@ void combine(MST graph,int NumEdge,Edge edge){
     }
   }
 }
-//  return graph;
+
 }
 
 void print(MST graph,int NumEdge){
@@ -116,29 +122,32 @@ void print(MST graph,int NumEdge){
   }
 }
 
+//main function for kruskal
 MST kruskal(Graph *graph){
-//  int GraphEdge=0;
+
   int MstEdge = 0;
   int subset =1;
   int totalMst = (graph->SumV-1);
   MST minimal;
   Node *node =NULL;
-  addingNode(&node,graph);
+  addingNode(&node,graph);          //convert edge in the graph into avl node and add them into avl tree
+                                    //avl tree has done all the sorting from smallest to largest
   minimal.mstEdge=(Edge *)calloc(graph->SumV,sizeof(Edge));
   minimal.totalWeight =0;
 while(MstEdge<totalMst){
-  Node *shorted = getSmallestRemove(&node);
-  Edge SmallEdge = convertNodeToEdge(shorted);
+  Node *shorted = getSmallestRemove(&node);   //get the smallest value in the avl node
+  Edge SmallEdge = convertNodeToEdge(shorted);    //then covert back to edge type
     if((SmallEdge.head->sub == SmallEdge.tail->sub)&& SmallEdge.head->sub !=0){
-
+        //check the edge head and tail sub that it will not have same sub
+        //so that it will not have a loop
     }
     else{
-      minimal.mstEdge[MstEdge] = SmallEdge;
+      minimal.mstEdge[MstEdge] = SmallEdge;       //put into a minimal spannong tree graph
       minimal.totalWeight = minimal.totalWeight + SmallEdge.weight;
       int headSub = SmallEdge.head->sub;
       int tailSub = SmallEdge.tail->sub;
-      if((headSub ==0 && tailSub == 0)){
-        SmallEdge.head->sub = subset;
+      if((headSub ==0 && tailSub == 0)){      //when put in the minimal spanning tree, it will
+        SmallEdge.head->sub = subset;         //become a subset
         SmallEdge.tail->sub = subset;
         subset ++;
       }
@@ -149,7 +158,8 @@ while(MstEdge<totalMst){
         SmallEdge.head->sub = SmallEdge.tail->sub;
       }
       else{
-          combine(minimal,MstEdge,SmallEdge);
+          combine(minimal,MstEdge,SmallEdge);       //use to combine two subset when it
+                                                    //detect two subset need to combine
       }
       printf("%s ----- %s ,weight=%d\n",SmallEdge.head->name,SmallEdge.tail->name,SmallEdge.weight);
   //  GraphEdge++;

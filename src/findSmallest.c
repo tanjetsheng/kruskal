@@ -1,6 +1,8 @@
 #include "findSmallest.h"
 #include "Node.h"
 
+
+//rotating two node so that my remove function can remove the correct node
 Node *getSmallest(Node *nodePtr){
   Node *temp = (Node *)malloc(sizeof(Node));
   Node *nodeLeft = nodePtr->left;
